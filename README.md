@@ -13,12 +13,12 @@ username - admin@user.com
 password - Admin@123
 
 Seller User1:
-Sell@123
-seller@user.com
+username - seller@user.com
+password - Sell@123
 
 Buyer User1:
-buyer@user.com
-Buy@123
+username - buyer@user.com
+password - Buy@123
 -----------------------------------------------------------------
 Please use this curl in Postman :
 https://api.postman.com/collections/30195903-914f91fb-c58b-4a98-a1a3-7d9dda1a68c5?access_key=PMAT-01J10DAWPA387VM58G2KN7N4CE
