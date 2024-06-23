@@ -19,10 +19,8 @@ password - Sell@123
 Buyer User1:
 username - buyer@user.com
 password - Buy@123
------------------------------------------------------------------
-Please use this curl in Postman :
-https://api.postman.com/collections/30195903-914f91fb-c58b-4a98-a1a3-7d9dda1a68c5?access_key=PMAT-01J10DAWPA387VM58G2KN7N4CE
 
+-----------------------------------------------------------------
 
 ### API's for Postman:
 
@@ -74,5 +72,68 @@ Before running the project, run this query in Mysql:
 Create database products;
 
 After this hibernate will create all the required tables in the database as per the models in the project.
+
+
+Run following queries in Mysql to insert data in tables:
+
+-- Dumping database structure for products
+CREATE DATABASE IF NOT EXISTS `products` /*!40100 DEFAULT CHARACTER SET latin1 */;
+USE `products`;
+
+-- Dumping structure for table products.delivery
+CREATE TABLE IF NOT EXISTS `delivery` (
+  `d_id` int(11) NOT NULL,
+  `days` int(11) NOT NULL,
+  `pincode` int(11) NOT NULL,
+  `product_code` int(11) DEFAULT NULL,
+  PRIMARY KEY (`d_id`),
+  KEY `FKco4ppaq0bvd8c3hjxsfcu7tih` (`product_code`),
+  CONSTRAINT `FKco4ppaq0bvd8c3hjxsfcu7tih` FOREIGN KEY (`product_code`) REFERENCES `products` (`code`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- Dumping data for table products.delivery: ~4 rows (approximately)
+INSERT IGNORE INTO `delivery` (`d_id`, `days`, `pincode`, `product_code`) VALUES
+	(1, 1, 201001, 1),
+	(3, 2, 110010, 3),
+	(6, 4, 400001, 4),
+	(17, 4, 400001, 7);
+
+-- Dumping structure for table products.products
+CREATE TABLE IF NOT EXISTS `products` (
+  `code` int(11) NOT NULL,
+  `brand` varchar(255) DEFAULT NULL,
+  `details` varchar(600) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `price` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`code`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- Dumping data for table products.products: ~7 rows (approximately)
+INSERT IGNORE INTO `products` (`code`, `brand`, `details`, `name`, `price`) VALUES
+	(1, 'Puma', 'Shoe', 'Sports Shoes', '1999'),
+	(3, 'Levis', 'Shirts', 'D-Shirt', '2199'),
+	(4, 'Levis', 'Shirts', 'D-Shirt', '2199'),
+	(5, 'Levis', 'Shirts', 'D-Shirt', '2199'),
+	(7, 'Maruti', 'Sports Car', 'Breeza', '1099000'),
+	(8, 'Ferrari', 'Sports Car', 'F7', '5099000'),
+	(9, 'Honda', 'Sedan', 'Honda City', '950000');
+
+-- Dumping structure for table products.users
+CREATE TABLE IF NOT EXISTS `users` (
+  `email` varchar(255) NOT NULL,
+  `firstname` varchar(255) DEFAULT NULL,
+  `lastname` varchar(255) DEFAULT NULL,
+  `password` varchar(255) DEFAULT NULL,
+  `roles` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`email`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- Dumping data for table products.users: ~5 rows (approximately)
+INSERT IGNORE INTO `users` (`email`, `firstname`, `lastname`, `password`, `roles`) VALUES
+	('admin@user.com', 'Admin', 'Test', '$2a$10$DE9pZHg2fTFNbS3QHjir/.u8MD391wkoqysELvn/MV4734AIskGGe', 'ROLE_ADMIN'),
+	('buyer@user.com', 'Buyer', 'Party', '$2a$10$YYIbLPr463QWwroIblZVceAgo9w5KOotBqVG3OkrNqV3fwB2swKRa', 'ROLE_BUYER'),
+	('seller@user.com', 'Seller', 'Party', '$2a$10$VwJrcxVf88foqnCN5Z2bTu3QTJA0D3x/PqHsQRIhKxZcSP3AVknmm', 'ROLE_SELLER'),
+	('test@user.com', 'test', 'one', '$2a$10$9z.VM2BDqUhu5X5QR3nG6OLDog55hs.jqMvJmARsgWaVl3oAFCUUi', NULL),
+	('ujjwaltyagi@gmail.com', 'Ujjwal', 'Tyagi', '$2a$10$7KjWPZ6zAJ9hi5KqTE9EKuic0XeviF2AwPArjIL7XJGyAQWWsAFKW', 'ROLE_ADMIN');
 
 ----------------------------------------------------------------------
